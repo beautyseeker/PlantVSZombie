@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-enum CardState
+public enum CardState
 {
     Cooling,
     WaitSun,
@@ -16,11 +16,30 @@ public class PlantCard : MonoBehaviour
     [SerializeField] private GameObject cardLight;
     [SerializeField] private GameObject cardGray;
     [SerializeField] private Image coolingMask;
-    private CardState curState = CardState.Cooling;
+    public CardState curState = CardState.Cooling;
 
     [SerializeField] private float CDTime = 4;
     [SerializeField] private int sunCost = 50;
+
+    public int SunCost
+    {
+        get { return sunCost; }
+    }
     private float eclipsedTime;
+
+    [SerializeField] private Button button;
+
+    public Plant plantInstance;
+
+    private void Start()
+    {
+        button.onClick.AddListener(OnCardPick);
+    }
+
+    private void OnCardPick()
+    {
+        HandManager.Instance.OnPlantCardClick(this);
+    }
 
     private void Update()
     {
@@ -31,9 +50,6 @@ public class PlantCard : MonoBehaviour
                 break;
             case CardState.WaitSun:
                 WaitSunUpdate();
-                break;
-            case CardState.Ready:
-                ReadyUpdate();
                 break;
         }
         
@@ -53,9 +69,13 @@ public class PlantCard : MonoBehaviour
         }
     }
 
-    private void ReadyUpdate()
+    public void TransitionToCooling()
     {
         // 检测到点击且放置后则切换为Cooling态
+        cardLight.SetActive(false);
+        cardGray.SetActive(true);
+        coolingMask.gameObject.SetActive(true);
+        curState = CardState.Cooling;
     }
 
     private void WaitSunUpdate()
@@ -63,15 +83,10 @@ public class PlantCard : MonoBehaviour
 
         if (SunManager.Instance.SunAmount >= sunCost)
         {
-            SunManager.Instance.SunDecrease(sunCost);
             cardLight.SetActive(true);
             cardGray.SetActive(false);
             coolingMask.gameObject.SetActive(false);
             curState = CardState.Ready;
-            // curState = CardState.Cooling;
-            // cardLight.SetActive(false);
-            // cardGray.SetActive(true);
-            // coolingMask.gameObject.SetActive(false);
         }
     }
     
