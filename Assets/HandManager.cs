@@ -18,9 +18,7 @@ public class HandManager : MonoBehaviour
     {
         if (plantOnHand != null)
         {
-            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mouseWorldPos.z = 0;
-            plantOnHand.transform.position = mouseWorldPos;
+            PlantFollowMouse();
         }
     }
 
@@ -29,7 +27,8 @@ public class HandManager : MonoBehaviour
         if (plantOnHand != null)
         {
             plantOnHand.transform.position = cell.transform.position;
-            cell.plantPrefab = plantOnHand;
+            cell.plantInCell = plantOnHand;
+            plantOnHand.GetComponent<Plant>().EnableOnHandFeature(false);
             SunManager.Instance.SunDecrease(curPlantType.SunCost);
             curPlantType.TransitionToCooling();
             plantOnHand = null;
@@ -40,10 +39,23 @@ public class HandManager : MonoBehaviour
     {
         if (plantOnHand == null)
         {
-            curPlantType = card;
-            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mouseWorldPos.z = 0;
-            plantOnHand = Instantiate(card.plantInstance.gameObject, mouseWorldPos, Quaternion.identity);
+            FetchPlantOnMouse(card);
         }
+    }
+
+    private void FetchPlantOnMouse(PlantCard card)
+    {
+        curPlantType = card;
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0;
+        plantOnHand = Instantiate(card.plantInstance.gameObject, mouseWorldPos, Quaternion.identity);
+        plantOnHand.GetComponent<Plant>().EnableOnHandFeature(true);
+    }
+
+    private void PlantFollowMouse()
+    {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0;
+        plantOnHand.transform.position = mouseWorldPos;
     }
 }

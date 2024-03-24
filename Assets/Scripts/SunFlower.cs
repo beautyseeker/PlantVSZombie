@@ -14,9 +14,8 @@ public class SunFlower : Plant
 
     [SerializeField] private GameObject sunSupply;
 
-    public override void Start()
+    public void Start()
     {
-        anim = GetComponent<Animator>();
         timer = 0;
         isOnGround = false;
         currentHealth = maxHealth;

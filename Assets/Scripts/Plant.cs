@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,21 +15,31 @@ public class Plant : MonoBehaviour
     public bool isOnGround;
     
     protected Animator anim;
-    
-    public virtual void Start()
+
+    protected Collider2D collider;
+
+    private void Awake()
     {
         anim = GetComponent<Animator>();
+        collider = GetComponent<Collider2D>();
         currentHealth = maxHealth;
     }
     //改变血量的方法
     public virtual int ChangeHealth(int damage)
     {
-        currentHealth += damage;
+        currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            GameObject.Destroy(gameObject);
+            Destroy(gameObject);
         }
         return currentHealth;
     }
+
+    public void EnableOnHandFeature(bool onHand)
+    {
+        anim.enabled = !onHand;
+        collider.enabled = !onHand;
+    }
+    
 
 }
