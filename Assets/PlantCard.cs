@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,15 @@ public enum CardState
     WaitSun,
     Ready
 }
+
+[Serializable]
+public class CardProp
+{
+    public string plantName;
+    public int sunCost;
+    public float CDTime;
+}
+
 public class PlantCard : MonoBehaviour
 {
     [SerializeField] private GameObject cardLight;
@@ -35,6 +45,19 @@ public class PlantCard : MonoBehaviour
     {
         button.onClick.AddListener(OnCardPick);
     }
+
+    private void LoadCardProp(string plantName)
+    {
+        cardLight = Resources.Load<GameObject>(plantName);
+        cardGray = Resources.Load<GameObject>(plantName);
+        plantInstance = Resources.Load<Plant>(plantName);
+        var jsonVal = JsonUtility.ToJson(this);
+
+        string savePath = Application.dataPath;
+        // var obj = JsonUtility.FromJson(File.ReadAllText(savePath + "PlantsProp.json"));
+        StreamWriter sw = new StreamWriter(savePath);
+    }
+    
 
     private void OnCardPick()
     {
@@ -88,6 +111,11 @@ public class PlantCard : MonoBehaviour
             coolingMask.gameObject.SetActive(false);
             curState = CardState.Ready;
         }
+    }
+
+    public void OnCardSelect()
+    {
+        
     }
     
 }

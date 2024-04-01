@@ -14,11 +14,11 @@ public class Plant : MonoBehaviour
 
     public bool isOnGround;
     
-    protected Animator anim;
+    [SerializeField] protected Animator anim;
 
-    protected Collider2D collider;
+    [SerializeField] protected Collider2D collider;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         anim = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
@@ -35,7 +35,7 @@ public class Plant : MonoBehaviour
         return currentHealth;
     }
 
-    public void EnableOnHandFeature(bool onHand)
+    public virtual void EnableOnHandFeature(bool onHand)
     {
         anim.enabled = !onHand;
         collider.enabled = !onHand;

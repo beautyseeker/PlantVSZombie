@@ -13,20 +13,23 @@ public class Peashooter : Plant
     private Transform bulletSpawnPos;
     private GameObject flyingBullet;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         peaBullet = Resources.Load<GameObject>("PlantInstance/PeaBullet");
         bulletSpawnPos = transform.Find("BulletSpawnPos");
-    }
-
-    public void Start()
-    {
-        InvokeRepeating("Shoot",0,1);
     }
 
     public void Shoot()
     {
         if(flyingBullet == null)
             flyingBullet = Instantiate(peaBullet, bulletSpawnPos.position, Quaternion.identity);
+    }
+    
+    public override void EnableOnHandFeature(bool onHand)
+    {
+        base.EnableOnHandFeature(onHand);
+        if(!onHand)
+            InvokeRepeating("Shoot",0,1);
     }
 }

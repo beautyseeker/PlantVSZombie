@@ -233,7 +233,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 50, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6868875882315149918
 CanvasRenderer:
@@ -262,7 +262,7 @@ MonoBehaviour:
   CDTime: 4
   sunCost: 50
   button: {fileID: 6043779281936693994}
-  plantInstance: {fileID: 137634900834800890, guid: 668053ee215834c4bad7e9f008c18404, type: 3}
+  plantInstance: {fileID: 0}
 --- !u!1 &6922087247967792232
 GameObject:
   m_ObjectHideFlags: 0

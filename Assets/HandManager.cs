@@ -19,6 +19,11 @@ public class HandManager : MonoBehaviour
         if (plantOnHand != null)
         {
             PlantFollowMouse();
+            if (Input.GetMouseButtonDown(1))
+            {
+                Destroy(plantOnHand);
+                plantOnHand = null;
+            }
         }
     }
 
