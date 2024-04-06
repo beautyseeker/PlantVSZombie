@@ -17,7 +17,6 @@ public class SunFlower : Plant
     public void Start()
     {
         timer = 0;
-        isOnGround = false;
         currentHealth = maxHealth;
     }
 

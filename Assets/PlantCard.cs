@@ -10,7 +10,9 @@ public enum CardState
 {
     Cooling,
     WaitSun,
-    Ready
+    Ready,
+    InSlot,
+    WaitPick
 }
 
 [Serializable]
@@ -48,8 +50,8 @@ public class PlantCard : MonoBehaviour
 
     private void LoadCardProp(string plantName)
     {
-        cardLight = Resources.Load<GameObject>(plantName);
-        cardGray = Resources.Load<GameObject>(plantName);
+        // cardLight.GetComponent<Image>().mainTexture = Resources.Load<Texture>(plantName);
+        // cardGray = Resources.Load<GameObject>(plantName);
         plantInstance = Resources.Load<Plant>(plantName);
         var jsonVal = JsonUtility.ToJson(this);
 

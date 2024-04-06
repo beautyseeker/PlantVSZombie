@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5187284301035846688}
   - component: {fileID: 3939679911243291743}
   m_Layer: 0
-  m_Name: Peashooter
+  m_Name: PeaShooter
   m_TagString: Plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,9 +171,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 300
-  isOnGround: 0
-  peaBullet: {fileID: 0}
+  maxHealth: 60
+  anim: {fileID: 0}
+  collider: {fileID: 0}
+  peaBullet: {fileID: 2521036236077207880, guid: be6ad414183348b4185a234968011ef6, type: 3}
 --- !u!1 &2739772655240427753
 GameObject:
   m_ObjectHideFlags: 0

@@ -186,13 +186,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
                 //}
 
                 Plant obj = curObj.GetComponent<Plant>();
-
-                if (obj != null)
-                {
-
-                    obj.isOnGround = true;
-
-                }
+                
 
 
 

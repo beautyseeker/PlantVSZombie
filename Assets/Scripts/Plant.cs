@@ -10,10 +10,8 @@ public class Plant : MonoBehaviour
 {
     public int currentHealth;
 
-    public int maxHealth = 300;
+    public int maxHealth = 60;
 
-    public bool isOnGround;
-    
     [SerializeField] protected Animator anim;
 
     [SerializeField] protected Collider2D collider;

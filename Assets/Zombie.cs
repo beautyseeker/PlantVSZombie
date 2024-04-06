@@ -15,10 +15,9 @@ public class Zombie : MonoBehaviour
     [SerializeField] private float moveSpeed = 0.2f;
     [SerializeField] private int atkDmg = 8;
     private float atkInterval = 1;
-    private float atkTimer;
     private bool hasAttackAbility = true;
     private Animator animController;
-    private Plant attackingTarget;
+    [SerializeField] private Plant attackingTarget;
 
     private void Awake()
     {
@@ -30,15 +29,6 @@ public class Zombie : MonoBehaviour
     private void Update()
     {
         transform.Translate(moveSpeed*Time.deltaTime*Vector3.left);
-        if (attackingTarget != null)
-        {
-            atkTimer += Time.deltaTime;
-            if (atkTimer > atkInterval)
-            {
-                atkTimer = 0;
-                Attack();
-            }
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -56,9 +46,10 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    private void Attack()
+    public void Attack()
     {
-        attackingTarget.ChangeHealth(atkDmg);
+        if (attackingTarget != null)
+            attackingTarget.ChangeHealth(atkDmg);
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -80,7 +71,7 @@ public class Zombie : MonoBehaviour
         {
             // 丧失攻击能力
             hasAttackAbility = false;
-            // 继续播放当前动画状态，3s后播放倒地状态
+            // 继续播放当前动画状态，3s后播放倒地动画
             Invoke("ZombieDown", 3);
         }
         return HPCurrent;

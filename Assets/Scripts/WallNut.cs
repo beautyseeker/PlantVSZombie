@@ -7,28 +7,16 @@ using UnityEngine;
 /// </summary>
 public class WallNut : Plant
 {
-
-
-
-
     public override int ChangeHealth(int damage)
     {
-
-
-
-        currentHealth += damage;
-
-        anim.SetFloat("pre", (float)(currentHealth / maxHealth));
-
-
-
-        if (currentHealth <= 0)
-        {
-            GameObject.Destroy(gameObject);
-        }
-
-        return currentHealth;
+        float curHPPct = (float)currentHealth / maxHealth;
+        anim.SetFloat("curHPPct", curHPPct);
+        return base.ChangeHealth(damage);
     }
 
-
+    public void RecoverComplete()
+    {
+        currentHealth = maxHealth;
+        anim.SetTrigger("Heal");
+    }
 }
